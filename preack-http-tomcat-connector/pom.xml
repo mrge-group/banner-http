@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>org.apache.solr.extensions</groupId>
+      <artifactId>preack-http</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
+   </parent>
+   <artifactId>preack-http-tomcat-connector</artifactId>
+   <packaging>jar</packaging>
+
+   <build>
+      <plugins>
+         <!-- copy the solr extensions -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.8</version>
+            <executions>
+               <execution>
+                  <id>copy-solr-webapp</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>${project.groupId}</groupId>
+                           <artifactId>${project.artifactId}</artifactId>
+                           <version>${project.version}</version>
+                           <type>jar</type>
+                           <overWrite>true</overWrite>
+                           <outputDirectory>${project.build.directory}/tomcat/lib</outputDirectory>
+                           <destFileName>tomcat-http-echo.jar</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>com.googlecode.t7mp</groupId>
+            <artifactId>maven-t7-plugin</artifactId>
+            <version>0.9.14</version>
+            <configuration>
+               <tomcatHttpPort>8080</tomcatHttpPort>
+               <tomcatShutdownPort>8005</tomcatShutdownPort>
+               <tomcatSetAwait>true</tomcatSetAwait>
+               <tomcatVersion>7.0.50</tomcatVersion>
+               <tomcatConfigDirectory>src/test/tomcat/conf</tomcatConfigDirectory>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.apache.tomcat</groupId>
+         <artifactId>tomcat-coyote</artifactId>
+         <version>7.0.50</version>
+      </dependency>
+   </dependencies>
+
+</project>
