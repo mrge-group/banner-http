@@ -15,6 +15,7 @@ public class HttpSolrServerWrapper {
 
    private final HttpSolrServer server;
    private HttpSolrServerState state = HttpSolrServerState.ALIVE;
+   private int errorCount = 0;
 
    public HttpSolrServerWrapper(HttpSolrServer solrServer) {
       this.server = solrServer;
