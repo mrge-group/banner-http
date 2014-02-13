@@ -47,3 +47,17 @@ You need to haven Maven installed. Check out the project, run
     mvn clean verify
     
 You'll find the client and tomcat `jar` in the `target` directory of the subproject.
+
+## Issueing a release
+
+In order to do a release we have to prepare the release
+
+    $ mvn release:prepare
+    
+The parameter `developmentVersion` can be used to set the new version of your local working copy. Afterwards we perform the release
+
+    $ mvn release:perform
+
+## License
+
+[Apache License](LICENSE)
