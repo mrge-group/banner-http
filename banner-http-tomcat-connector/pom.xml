@@ -42,12 +42,28 @@
             <artifactId>maven-t7-plugin</artifactId>
             <version>0.9.14</version>
             <configuration>
-               <tomcatHttpPort>8080</tomcatHttpPort>
-               <tomcatShutdownPort>8005</tomcatShutdownPort>
-               <tomcatSetAwait>true</tomcatSetAwait>
+               <tomcatHttpPort>53278</tomcatHttpPort>
+               <tomcatShutdownPort>53279</tomcatShutdownPort>
+               <tomcatSetAwait>false</tomcatSetAwait>
                <tomcatVersion>7.0.50</tomcatVersion>
                <tomcatConfigDirectory>src/test/tomcat/conf</tomcatConfigDirectory>
             </configuration>
+            <executions>
+               <execution>
+                  <id>start-tomcat</id>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <phase>pre-integration-test</phase>
+               </execution>
+               <execution>
+                  <id>stop-tomcat</id>
+                  <goals>
+                     <goal>stop</goal>
+                  </goals>
+                  <phase>post-integration-test</phase>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>

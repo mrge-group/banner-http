@@ -3,7 +3,7 @@
 **The "banner" HTTP protocol**
 
 
-This project bundles server (Tomcat) and client (HttpClient, Solr) libraries to handle the "banner" HTTP protocol. The implementation is inspired by a talk Etsys [Gregg Donovan](https://twitter.com/greggdonovan) gave at [Lucene Revolution in 2013](http://www.slideshare.net/greggny3/living-with-garbage-by-gregg-donovan-at-lucenesolr-revolution-2013).
+This project bundles server (Tomcat) and client (HttpClient) libraries to handle the "banner" HTTP protocol. The implementation is inspired by a talk Etsys [Gregg Donovan](https://twitter.com/greggdonovan) gave at [Lucene Revolution in 2013](http://www.slideshare.net/greggny3/living-with-garbage-by-gregg-donovan-at-lucenesolr-revolution-2013).
 
 ## What to use for
 
@@ -22,7 +22,7 @@ This project includes a `Connector` for the popular [Tomcat Servlet engine](http
 The Tomcat connector wil send the `0xDEADDA7A` sequence to the client before reading any HTTP headers. Add the connector to your `server.xml`. We recommend to add it as an additional connector and not to replace th existing HTTP connector:
 
     <Connector port="8100"
-       protocol="org.apache.coyote.http11.Http11PreAckProtocol" 
+       protocol="org.apache.coyote.http11.Http11BannerProtocol" 
        connectionTimeout="20000" 
        URIEncoding="utf-8" />
 

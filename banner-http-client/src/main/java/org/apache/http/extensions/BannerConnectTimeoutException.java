@@ -1,4 +1,4 @@
-package org.apache.solr.extensions.httpclient;
+package org.apache.http.extensions;
 
 import java.net.SocketTimeoutException;
 
