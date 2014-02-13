@@ -17,7 +17,7 @@ On the client side, a `BannerConnectTimeoutException` is thrown and the client c
 
 This project includes a `Connector` for the popular [Tomcat Servlet engine](http://tomcat.apache.org/) and a thread pool implementation for the [`HttpClient`](http://hc.apache.org/httpcomponents-client-ga/) library.
 
-### Enable `http-preack-bio` connector in Tomcat
+### Enable `http-banner-bio` connector in Tomcat
 
 The Tomcat connector wil send the `0xDEADDA7A` sequence to the client before reading any HTTP headers. Add the connector to your `server.xml`. We recommend to add it as an additional connector and not to replace th existing HTTP connector:
 
@@ -40,4 +40,10 @@ The pre-ack connection manager waits for the server to send the banner bytes. If
         new BannerPoolingClientConnectionManager(), 
         httpParams);
 
+## Building
 
+You need to haven Maven installed. Check out the project, run
+
+    mvn clean verify
+    
+You'll find the client and tomcat `jar` in the `target` directory of the subproject.
