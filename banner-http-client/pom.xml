@@ -2,22 +2,28 @@
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <groupId>org.apache.solr.extensions</groupId>
-      <artifactId>preack-http</artifactId>
+      <artifactId>banner-http</artifactId>
       <version>0.1.0-SNAPSHOT</version>
    </parent>
-   <artifactId>preack-solr-client</artifactId>
+   <artifactId>preack-http-client</artifactId>
    <packaging>jar</packaging>
 
    <dependencies>
       <dependency>
-         <groupId>org.apache.solr</groupId>
-         <artifactId>solr-solrj</artifactId>
-         <version>4.6.1</version>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+         <version>4.2.6</version>
       </dependency>
       <dependency>
-         <groupId>com.google.guava</groupId>
-         <artifactId>guava</artifactId>
-         <version>15.0</version>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>1.7.5</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.11</version>
+         <scope>test</scope>
       </dependency>
    </dependencies>
 </project>
