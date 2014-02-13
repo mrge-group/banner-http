@@ -12,30 +12,30 @@ import org.apache.http.impl.conn.SchemeRegistryFactory;
 import org.apache.http.impl.conn.SystemDefaultDnsResolver;
 
 /**
- * A Pooling client connection manager that expects to receive a defined pre-ack
+ * A Pooling client connection manager that expects to receive a defined banner
  * byte string from the connected server in a very short timeout.
  * 
  * @author Shopping24 GmbH, Torsten Bøgh Köster (@tboeghk)
  */
-public class PreAckPoolingClientConnectionManager extends PoolingClientConnectionManager {
+public class BannerPoolingClientConnectionManager extends PoolingClientConnectionManager {
 
    private final static DnsResolver dnsr = new SystemDefaultDnsResolver();
    
-   public PreAckPoolingClientConnectionManager() {
+   public BannerPoolingClientConnectionManager() {
       this(SchemeRegistryFactory.createDefault());
    }
 
-   public PreAckPoolingClientConnectionManager(final SchemeRegistry schreg) {
+   public BannerPoolingClientConnectionManager(final SchemeRegistry schreg) {
       this(schreg, -1, TimeUnit.MILLISECONDS);
    }
 
-   public PreAckPoolingClientConnectionManager(
+   public BannerPoolingClientConnectionManager(
          final SchemeRegistry schemeRegistry,
          final long timeToLive, final TimeUnit tunit) {
       this(schemeRegistry, timeToLive, tunit, dnsr);
    }
 
-   public PreAckPoolingClientConnectionManager(final SchemeRegistry schemeRegistry,
+   public BannerPoolingClientConnectionManager(final SchemeRegistry schemeRegistry,
          final long timeToLive, final TimeUnit tunit,
          final DnsResolver dnsResolver) {
       super(schemeRegistry, timeToLive, tunit, dnsResolver);
@@ -49,7 +49,7 @@ public class PreAckPoolingClientConnectionManager extends PoolingClientConnectio
       return new DefaultClientConnectionOperator(schreg, dnsr) {
          @Override
          public OperatedClientConnection createConnection() {
-            return new PreAckClientConnection();
+            return new BannerClientConnection();
          }
       };
    }

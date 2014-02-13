@@ -15,23 +15,23 @@ import org.apache.http.params.HttpParams;
 
 /**
  * Implementation of a {@linkplain SocketHttpClientConnection} that expects a
- * pre-ack byte sequence from the server.
+ * banner byte sequence from the server.
  * 
  * @author Shopping24 GmbH, Torsten Bøgh Köster (@tboeghk)
  */
-public class PreAckClientConnection extends DefaultClientConnection {
+public class BannerClientConnection extends DefaultClientConnection {
 
    /**
-    * Determines the timeout in milliseconds until the pre-ack byte sequence is
+    * Determines the timeout in milliseconds until the banner byte sequence is
     * received.
     * <p>
     * This parameter expects a value of type {@link Integer}.
     * </p>
     */
-   public static final String PRE_ACK_TIMEOUT = "http.preack.timeout";
+   public static final String BANNER_TIMEOUT = "http.banner.timeout";
 
    // this is the hexstring expected from the server
-   private final static String ACK_STRING = "DEADDA7A";
+   private final static String BANNER_STRING = "DEADDA7A";
 
    private SessionInputBuffer inputBuffer;
 
@@ -51,30 +51,30 @@ public class PreAckClientConnection extends DefaultClientConnection {
    public void openCompleted(boolean secure, HttpParams params) throws IOException {
       super.openCompleted(secure, params);
 
-      int preAckTimeout = params.getIntParameter(PRE_ACK_TIMEOUT, 5);
+      int bannerTimeout = params.getIntParameter(BANNER_TIMEOUT, 5);
 
       // change socket timeut to preack timeout
       try {
-         if (inputBuffer.isDataAvailable(preAckTimeout)) {
+         if (inputBuffer.isDataAvailable(bannerTimeout)) {
 
             // read buffer
-            byte[] expected = new BigInteger(ACK_STRING, 16).toByteArray();
+            byte[] expected = new BigInteger(BANNER_STRING, 16).toByteArray();
             byte[] buffer = new byte[expected.length];
             inputBuffer.read(buffer);
 
             if (!Arrays.equals(buffer, expected)) {
-               throw new PreAckConnectTimeoutException(String.format("Received unexpected pre-ack bytes %s.",
+               throw new BannerConnectTimeoutException(String.format("Received unexpected banner bytes %s.",
                      Arrays.toString(buffer)));
             }
          } else {
-            throw new PreAckConnectTimeoutException(String.format("Did not receive any pre-ack bytes in %s ms.",
-                  preAckTimeout));
+            throw new BannerConnectTimeoutException(String.format("Did not receive any banner bytes in %s ms.",
+                  bannerTimeout));
          }
       } catch (SocketTimeoutException e) {
 
          // repackage thrown socket timeout exception
-         throw new PreAckConnectTimeoutException(String.format("Did not receive any pre-ack bytes in %s ms: %s",
-               preAckTimeout, e.getMessage()), e);
+         throw new BannerConnectTimeoutException(String.format("Did not receive any banner bytes in %s ms: %s",
+               bannerTimeout, e.getMessage()), e);
       }
    }
 }

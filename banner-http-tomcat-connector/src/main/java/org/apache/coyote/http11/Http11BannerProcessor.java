@@ -15,16 +15,16 @@ import org.apache.tomcat.util.net.SocketWrapper;
  * 
  * @author Shopping24 GmbH, Torsten Bøgh Köster (@tboeghk)
  */
-public class Http11PreAckProcessor extends Http11Processor {
+public class Http11BannerProcessor extends Http11Processor {
 
-   private static final Log log = LogFactory.getLog(Http11PreAckProcessor.class);
+   private static final Log log = LogFactory.getLog(Http11BannerProcessor.class);
    
-   private final static String ACK_STRING = "DEADDA7A";
+   private final static String BANNER_STRING = "DEADDA7A";
 
    /**
     * Delegates arguments to superclass.
     */
-   public Http11PreAckProcessor(int headerBufferSize, JIoEndpoint endpoint, int maxTrailerSize,
+   public Http11BannerProcessor(int headerBufferSize, JIoEndpoint endpoint, int maxTrailerSize,
          int maxExtensionSize) {
       super(headerBufferSize, endpoint, maxTrailerSize, maxExtensionSize);
    }
@@ -37,11 +37,11 @@ public class Http11PreAckProcessor extends Http11Processor {
       // send bytes on first access only
       if (socketWrapper.getLastAccess() < 0) {
          if (log.isDebugEnabled()) {
-            log.debug("Sending pre-ack bytes.");
+            log.debug("Sending banner bytes.");
          }
          
          // shoot out the ack bytes before handling stuff.
-         socketWrapper.getSocket().getOutputStream().write(new BigInteger(ACK_STRING, 16).toByteArray());
+         socketWrapper.getSocket().getOutputStream().write(new BigInteger(BANNER_STRING, 16).toByteArray());
       }
 
       return super.process(socketWrapper);

@@ -8,19 +8,19 @@ import java.net.SocketTimeoutException;
  * 
  * @author Shopping24 GmbH, Torsten Bøgh Köster (@tboeghk)
  */
-public class PreAckConnectTimeoutException extends SocketTimeoutException {
+public class BannerConnectTimeoutException extends SocketTimeoutException {
 
    private static final long serialVersionUID = -1905059210843372520L;
 
-   public PreAckConnectTimeoutException() {
+   public BannerConnectTimeoutException() {
       super();
    }
 
-   public PreAckConnectTimeoutException(final String message) {
+   public BannerConnectTimeoutException(final String message) {
       super(message);
    }
 
-   public PreAckConnectTimeoutException(final String message, final Throwable cause) {
+   public BannerConnectTimeoutException(final String message, final Throwable cause) {
       super(message);
       initCause(cause);
    }

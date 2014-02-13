@@ -7,13 +7,13 @@ import org.apache.tomcat.util.net.JIoEndpoint;
  * 
  * @author Shopping24 GmbH, Torsten Bøgh Köster (@tboeghk)
  */
-public class Http11PreAckProtocol extends Http11Protocol {
+public class Http11BannerProtocol extends Http11Protocol {
 
-   public Http11PreAckProtocol() {
+   public Http11BannerProtocol() {
       super();
 
       // install alternate handler
-      cHandler = new Http11PreAckConnectionHandler(this, (JIoEndpoint) endpoint);
+      cHandler = new Http11BannerConnectionHandler(this, (JIoEndpoint) endpoint);
       
       // register alternate handler
       ((JIoEndpoint) endpoint).setHandler(cHandler);
@@ -21,18 +21,18 @@ public class Http11PreAckProtocol extends Http11Protocol {
 
    @Override
    protected String getNamePrefix() {
-      return "http-preack-bio";
+      return "http-banner-bio";
    }
 
    /**
-    * Inner class to inject a {@linkplain Http11PreAckProcessor} into the
+    * Inner class to inject a {@linkplain Http11BannerProcessor} into the
     * processor chain.
     */
-   protected static class Http11PreAckConnectionHandler extends Http11ConnectionHandler {
+   protected static class Http11BannerConnectionHandler extends Http11ConnectionHandler {
 
       private final JIoEndpoint endpoint;
 
-      Http11PreAckConnectionHandler(Http11Protocol proto, JIoEndpoint endpoint) {
+      Http11BannerConnectionHandler(Http11Protocol proto, JIoEndpoint endpoint) {
          super(proto);
 
          this.endpoint = endpoint;
@@ -43,7 +43,7 @@ public class Http11PreAckProtocol extends Http11Protocol {
        */
       @Override
       protected Http11Processor createProcessor() {
-         Http11Processor processor = new Http11PreAckProcessor(
+         Http11Processor processor = new Http11BannerProcessor(
                proto.getMaxHttpHeaderSize(), endpoint,
                proto.getMaxTrailerSize(), proto.getMaxExtensionSize());
          processor.setAdapter(proto.getAdapter());
