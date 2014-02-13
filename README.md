@@ -7,7 +7,7 @@ This project bundles server (Tomcat) and client (HttpClient) libraries to handle
 
 ## What to use for
 
-In high throughput low latency compute environments, Java garbage collection can be hazardous. Main goal of this project is to prevent that request are being made to a host that is currently garbage collecting.
+In high throughput low latency compute environments, Java garbage collection can be hazardous. Main goal of this project is to prevent that requests are being made to a host that is currently garbage collecting.
 
 To achive that, the server sends a 5-byte banner sequence to the client within a very short timeframe after connecting and before reading and HTTP headers. The JVM will accept socket connections during Stop-the-world young generation garbage collection but will not execute Java code. So when the server is gc-ing, it will not able to send the banner byte sequence to the client.
 
