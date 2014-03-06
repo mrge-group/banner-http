@@ -2,6 +2,7 @@
 ===========
 **The "banner" HTTP protocol**
 
+![travis ci build status](https://travis-ci.org/shopping24/banner-http.png)
 
 This project bundles server (Tomcat) and client (HttpClient) libraries to handle the "banner" HTTP protocol. The implementation is inspired by a talk Etsys [Gregg Donovan](https://twitter.com/greggdonovan) gave at [Lucene Revolution in 2013](http://www.slideshare.net/greggny3/living-with-garbage-by-gregg-donovan-at-lucenesolr-revolution-2013).
 
