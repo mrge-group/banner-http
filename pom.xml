@@ -52,9 +52,9 @@
 
    <distributionManagement>
       <repository>
-         <id>s24-artifactory</id>
+         <id>s24-internal</id>
          <name>Shopping24 Artifactory</name>
-         <url>http://ci.s24.com/artifactory/s24-releases</url>
+         <url>https://artifactory.s24.com/artifactory/s24-release-local</url>
       </repository>
    </distributionManagement>
 </project>
